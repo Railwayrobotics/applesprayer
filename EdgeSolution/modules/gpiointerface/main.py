@@ -3,6 +3,8 @@
 # full license information.
 
 import RPi.GPIO as GPIO
+import json
+
 import time
 import os
 import sys
@@ -23,16 +25,23 @@ async def main():
         # connect the client.
         await module_client.connect()
 
+        # interface the gpio
+        async def write_to_gpio(data):
+            pythonObj = json.loads(data)
+            GPIO.setmode(GPIO.BCM)
+            GPIO.output(data.output_pin, data.output_value)
+
         # define behavior for receiving an input message on input1
         async def input1_listener(module_client):
             while True:
-                input_message = await module_client.receive_message_on_input("input1")  # blocking call
-                print("the data in the message received on input1 was ")
+                input_message = await module_client.receive_message_on_input("imageDetected")  # blocking call
+                print("the data in the message received on imageDetected was ")
                 print(input_message.data)
                 print("custom properties are")
                 print(input_message.custom_properties)
-                print("forwarding mesage to output1")
-                await module_client.send_message_to_output(input_message, "output1")
+                write_to_gpio(input_message.data)
+                 # print("forwarding mesage to output1")
+                # await module_client.send_message_to_output(input_message, "output1")
 
         # define behavior for halting the application
         def stdin_listener():

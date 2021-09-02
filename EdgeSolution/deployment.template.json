@@ -11,9 +11,9 @@
             "loggingOptions": "",
             "registryCredentials": {
               "lucarv": {
-                "username": "$CONTAINER_REGISTRY_USERNAME_lucarv",
-                "password": "$CONTAINER_REGISTRY_PASSWORD_lucarv",
-                "address": "lucarv.azurecr.io"
+                "username": "$CONTAINER_REGISTRY_USERNAME_railwayroboticsdev",
+                "password": "$CONTAINER_REGISTRY_PASSWORD_railwayroboticsdev",
+                "address": "railwayroboticsdev.azurecr.io"
               }
             }
           }
@@ -100,6 +100,16 @@
                 ]
               }
             }
+          },
+          "ImageDetectorSimulator": {
+            "version": "1.0",
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "${MODULES.ImageDetectorSimulator}",
+              "createOptions": {}
+            }
           }
         }
       }
@@ -108,9 +118,7 @@
       "properties.desired": {
         "schemaVersion": "1.2",
         "routes": {
-          "gpiointerfaceToIoTHub": "FROM /messages/modules/gpiointerface/outputs/* INTO $upstream",
-          "sensorTogpiointerface": "FROM /messages/modules/SimulatedTemperatureSensor/outputs/temperatureOutput INTO BrokeredEndpoint(\"/modules/gpiointerface/inputs/input1\")",
-          "DeepstreamToIoTHub": "FROM /messages/modules/NVIDIADeepStreamSDK/outputs/* INTO $upstream"
+          "simulatorToGpioInterface": "FROM /messages/modules/ImageDetectorSimulator/outputs/imageDetected INTO BrokeredEndpoint(\"/modules/gpiointerface/inputs/imageDetected\")"
         },
         "storeAndForwardConfiguration": {
           "timeToLiveSecs": 7200
