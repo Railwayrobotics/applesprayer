@@ -29,7 +29,7 @@ async def main():
         async def write_to_gpio(data):
             pythonObj = json.loads(data)
             GPIO.setmode(GPIO.BCM)
-            GPIO.output(data.output_pin, data.output_value)
+            GPIO.output(data.output_pin, GPIO.LOW)
 
         # define behavior for receiving an input message on input1
         async def input1_listener(module_client):
