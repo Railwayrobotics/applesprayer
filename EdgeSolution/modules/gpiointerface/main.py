@@ -2,6 +2,7 @@
 # Licensed under the MIT license. See LICENSE file in the project root for
 # full license information.
 
+import RPi.GPIO as GPIO
 import time
 import os
 import sys

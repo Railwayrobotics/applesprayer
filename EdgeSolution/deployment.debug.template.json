@@ -89,6 +89,30 @@
               "image": "mcr.microsoft.com/azureiotedge-simulated-temperature-sensor:1.0",
               "createOptions": {}
             }
+          },
+          "NVIDIADeepStreamSDK": {
+            "version": "1.0",
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "marketplace.azurecr.io/nvidia/deepstream-iot2-l4t:latest",
+              "createOptions": {
+                "HostConfig": {
+                  "runtime": "nvidia"
+                },
+                "WorkingDir": "/root/deepstream_sdk_v4.0.2_jetson/sources/apps/sample_apps/deepstream-test5/configs/",
+                "Entrypoint": [
+                  "/usr/bin/deepstream-test5-app",
+                  "-c",
+                  "test5_config_file_src_infer_azure_iotedge.txt",
+                  "-p",
+                  "1",
+                  "-m",
+                  "1"
+                ]
+              }
+            }
           }
         }
       }
@@ -98,7 +122,8 @@
         "schemaVersion": "1.2",
         "routes": {
           "gpiointerfaceToIoTHub": "FROM /messages/modules/gpiointerface/outputs/* INTO $upstream",
-          "sensorTogpiointerface": "FROM /messages/modules/SimulatedTemperatureSensor/outputs/temperatureOutput INTO BrokeredEndpoint(\"/modules/gpiointerface/inputs/input1\")"
+          "sensorTogpiointerface": "FROM /messages/modules/SimulatedTemperatureSensor/outputs/temperatureOutput INTO BrokeredEndpoint(\"/modules/gpiointerface/inputs/input1\")",
+          "DeepstreamToIoTHub": "FROM /messages/modules/NVIDIADeepStreamSDK/outputs/* INTO $upstream"
         },
         "storeAndForwardConfiguration": {
           "timeToLiveSecs": 7200
