@@ -1,0 +1,9 @@
+##GPIO mapping for pumps, valves and camera ligth 
+#Right side pumps and right camera ligth [18] (gpio79, pin 12, channel 1 relay) 0=pump and ligth on
+#Left side pumps and left camera ligth [23] (gpio232, pin 16, channel 2 relay) 0=pump and ligth on
+#Right side right valve [24] (gpio15, pin 18, channel 3 relay) 0=spray
+#Right side middle valve [25] (gpio13, pin 22, channel 4 relay) 0=spray
+#Right side left valve [8] (gpio19, pin 24, channel 5 relay) 0=spray
+#Left side right valve [7] (gpio20, pin 26, channel 6 relay) 0=spray
+#Left side middle valve [12] (gpio168, pin 32, channel 7 relay) 0=spray
+#Left side left valve [20] (gpio77, pin 38, channel 8 relay) 0=spray
