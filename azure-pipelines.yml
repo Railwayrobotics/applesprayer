@@ -1,0 +1,23 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    exclude:
+    - azure-pipelines-arm.yml
+    - ARM
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  Major: '1'
+  Minor: '0'
+  Revision: $[counter(variables['Minor'], 1)]
+
+name: $(major).$(minor).$(Revision)
