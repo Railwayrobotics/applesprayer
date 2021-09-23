@@ -50,7 +50,7 @@ stages:
         projects: '**/Railwayrobotics.Applesprayer.Brain.UnitTests.csproj'
         arguments: '--configuration $(buildConfiguration)'
 
-- stage: Buildarm64v8
+- stage: Edge
   displayName: Build target arm64v8 
   pool:
     vmImage: 'ubuntu-latest'
@@ -64,6 +64,12 @@ stages:
         context: $(Build.SourcesDirectory)
         tag: rr-applesprayer-brain:$(Build.BuildNumber)
         outputFile: $(Build.ArtifactStagingDirectory)/rr-applesprayer-brain.tar
+    - template: docker_save_tar.yml@iot
+      parameters:
+        dockerFile: $(Build.SourcesDirectory)/Railwayrobotics.Applesprayer.Gpio/Dockerfile.arm64v8
+        context: $(Build.SourcesDirectory)
+        tag: rr-applesprayer-gpio:$(Build.BuildNumber)
+        outputFile: $(Build.ArtifactStagingDirectory)/rr-applesprayer-gpio.tar
     - task: Bash@3
       displayName: Install iotedgedev
       inputs:
