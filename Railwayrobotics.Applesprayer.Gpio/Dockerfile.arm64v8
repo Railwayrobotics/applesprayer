@@ -1,12 +1,13 @@
+#!/usr/bin/env python3.7
 FROM --platform=linux/arm64 debian:stretch-slim
 FROM arm64v8/python:3.7.6-buster
 
 WORKDIR /app
 
 COPY requirements.txt ./
-RUN pip3 install --upgrade pip
-RUN pip install --upgrade pip setuptools wheel
-RUN pip3 install -r requirements.txt
+RUN /usr/bin/env pip3 install --upgrade pip
+RUN /usr/bin/env pip install --upgrade pip setuptools wheel
+RUN /usr/bin/env pip3 install -r requirements.txt
 
 COPY . .
 
