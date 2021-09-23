@@ -8,7 +8,6 @@ WORKDIR /app
 COPY requirements.txt ./
 COPY prereqs.sh ./
 
-RUN chmod prereqs.sh
 RUN /prereqs.sh
 
 COPY . .
