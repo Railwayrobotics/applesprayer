@@ -11,7 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Railwayrobotics.Applespraye
 	ProjectSection(SolutionItems) = preProject
 		Railwayrobotics.Applesprayer.Gpio\.gitignore = Railwayrobotics.Applesprayer.Gpio\.gitignore
 		Railwayrobotics.Applesprayer.Gpio\Dockerfile.arm64v8 = Railwayrobotics.Applesprayer.Gpio\Dockerfile.arm64v8
-		Railwayrobotics.Applesprayer.Gpio\Dockerfile.arm64v8.debug = Railwayrobotics.Applesprayer.Gpio\Dockerfile.arm64v8.debug
 		Railwayrobotics.Applesprayer.Gpio\main.py = Railwayrobotics.Applesprayer.Gpio\main.py
 		Railwayrobotics.Applesprayer.Gpio\module.json = Railwayrobotics.Applesprayer.Gpio\module.json
 		Railwayrobotics.Applesprayer.Gpio\requirements.txt = Railwayrobotics.Applesprayer.Gpio\requirements.txt

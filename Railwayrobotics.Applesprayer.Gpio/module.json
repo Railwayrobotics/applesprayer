@@ -6,8 +6,7 @@
     "tag": {
       "version": "${BUILD_BUILDNUMBER}",
       "platforms": {
-        "arm64v8": "./Dockerfile.arm64v8",
-        "arm64v8.debug": "./Dockerfile.arm64v8.debug"
+        "arm64v8": "./Dockerfile.arm64v8"
       }
     },
     "buildOptions": [],
