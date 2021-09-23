@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{34036844-64E7-43A5-9151-4AD90E180989}") = "Railwayrobotics.Applesprayer.Edge", "Railwayrobotics.Applesprayer.Edge.iotedgeproj", "{FD2ECAF4-6482-48BF-898E-449B97660F52}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Railwayrobotics.Applesprayer.Brain", "Railwayrobotics.Applesprayer.Brain\Railwayrobotics.Applesprayer.Brain.csproj", "{902D140C-0F61-4EF6-BBF3-8D3977FB03A7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Railwayrobotics.Applesprayer.Gpio", "Railwayrobotics.Applesprayer.Gpio", "{CC0DCEB2-4ABD-4B11-BE96-B02459F111E3}"
+	ProjectSection(SolutionItems) = preProject
+		Railwayrobotics.Applesprayer.Gpio\.gitignore = Railwayrobotics.Applesprayer.Gpio\.gitignore
+		Railwayrobotics.Applesprayer.Gpio\Dockerfile.arm64v8 = Railwayrobotics.Applesprayer.Gpio\Dockerfile.arm64v8
+		Railwayrobotics.Applesprayer.Gpio\Dockerfile.arm64v8.debug = Railwayrobotics.Applesprayer.Gpio\Dockerfile.arm64v8.debug
+		Railwayrobotics.Applesprayer.Gpio\main.py = Railwayrobotics.Applesprayer.Gpio\main.py
+		Railwayrobotics.Applesprayer.Gpio\module.json = Railwayrobotics.Applesprayer.Gpio\module.json
+		Railwayrobotics.Applesprayer.Gpio\requirements.txt = Railwayrobotics.Applesprayer.Gpio\requirements.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{12DF4965-F455-457D-9320-53224E092923}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Railwayrobotics.Applesprayer.Brain.UnitTests", "Railwayrobotics.Applesprayer.Brain.UnitTests\Railwayrobotics.Applesprayer.Brain.UnitTests.csproj", "{8BD9E65F-E882-4DD8-9348-02C34C2AD40D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD2ECAF4-6482-48BF-898E-449B97660F52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD2ECAF4-6482-48BF-898E-449B97660F52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD2ECAF4-6482-48BF-898E-449B97660F52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD2ECAF4-6482-48BF-898E-449B97660F52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{902D140C-0F61-4EF6-BBF3-8D3977FB03A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{902D140C-0F61-4EF6-BBF3-8D3977FB03A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{902D140C-0F61-4EF6-BBF3-8D3977FB03A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{902D140C-0F61-4EF6-BBF3-8D3977FB03A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BD9E65F-E882-4DD8-9348-02C34C2AD40D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BD9E65F-E882-4DD8-9348-02C34C2AD40D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BD9E65F-E882-4DD8-9348-02C34C2AD40D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BD9E65F-E882-4DD8-9348-02C34C2AD40D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D2B3F3FF-56A9-4ABB-907C-535F0216A1C2}
+	EndGlobalSection
+EndGlobal

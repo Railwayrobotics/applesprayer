@@ -21,3 +21,76 @@ variables:
   Revision: $[counter(variables['Minor'], 1)]
 
 name: $(major).$(minor).$(Revision)
+
+resources:
+    repositories:
+        - repository: iot
+          type: git
+          name: precision-lubrication/Railwayrobotics.iot
+
+stages:
+- stage: Test
+  displayName: Unit test modules
+  pool:
+    vmImage: 'ubuntu-latest'
+  jobs:
+  - job: test
+    displayName: Unit test modules
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: DotNet Restore
+      inputs:
+        command: 'restore'
+        projects: '**/*UnitTests.csproj'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'UT: Railwayrobotics.Applesprayer.Brain.UnitTests'
+      inputs:
+        command: test
+        projects: '**/Railwayrobotics.Applesprayer.Brain.UnitTests.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+
+- stage: Buildarm64v8
+  displayName: Build target arm64v8 
+  pool:
+    vmImage: 'ubuntu-latest'
+  jobs:
+  - job: tar
+    displayName: Build docker tar arm64v8
+    steps:
+    - template: Docker\docker_save_tar.yml@templates
+      parameters:
+        dockerFile: $(Build.SourcesDirectory)/Railwayrobotics.Applesprayer.Brain/Dockerfile.arm64v8
+        context: $(Build.SourcesDirectory)
+        tag: rr-applesprayer-brain:$(Build.BuildNumber)
+        outputFile: $(Build.ArtifactStagingDirectory)/rr-applesprayer-brain.tar
+    - task: Bash@3
+      displayName: Install iotedgedev
+      inputs:
+        targetType: 'inline'
+        script: 'pip install -U iotedgedev'
+    - task: AzureIoTEdge@2
+      displayName: Generate deployment manifest
+      inputs:
+        action: 'Generate deployment manifest'
+        templateFilePath: 'deployment.template.json'
+        defaultPlatform: 'arm64v8'
+        deploymentManifestOutputPath: '$(Build.ArtifactStagingDirectory)/config/dev/deployment.json'
+        validateGeneratedDeploymentManifest: 'true'
+      env:
+        CONTAINER_REGISTRY_SERVER: rrpliotcontainerdev.azurecr.io
+        ACR_ID: rrpliotcontainerdev
+
+ #   - task: AzureIoTEdge@2
+ #     displayName: Generate deployment manifest
+ #     inputs:
+ #       action: 'Generate deployment manifest'
+ #       templateFilePath: 'deployment.template.json'
+ #       defaultPlatform: 'arm32v7'
+ #       deploymentManifestOutputPath: '$(Build.ArtifactStagingDirectory)/config/prod/deployment.json'
+ #       validateGeneratedDeploymentManifest: 'true'
+ #     env:
+ #       CONTAINER_REGISTRY_SERVER: ??.azurecr.io
+ #       ACR_ID: ??
+        
+    - task: PublishBuildArtifacts@1

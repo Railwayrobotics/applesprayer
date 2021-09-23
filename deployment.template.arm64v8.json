@@ -1,0 +1,162 @@
+{
+  "$schema-template": "1.0.1",
+  "modulesContent": {
+    "$edgeAgent": {
+      "properties.desired": {
+        "schemaVersion": "1.1",
+        "runtime": {
+          "type": "docker",
+          "settings": {
+            "minDockerVersion": "v1.25",
+            "loggingOptions": "",
+            "registryCredentials": {
+              "$ACR_ID": {
+                "username": "$ACR_USER",
+                "password": "$ACR_PASSWORD",
+                "address": "$ACR_ADDRESS"
+              },
+              "edgecontainerreg": {
+                "username": "$CONTAINER_REGISTRY_USERNAME_edgecontainerreg",
+                "password": "$CONTAINER_REGISTRY_PASSWORD_edgecontainerreg",
+                "address": "edgecontainerreg.azurecr.io"
+              }
+            }
+          }
+        },
+        "systemModules": {
+          "edgeAgent": {
+            "type": "docker",
+            "settings": {
+              "image": "mcr.microsoft.com/azureiotedge-agent:1.2",
+              "createOptions": {}
+            }
+          },
+          "edgeHub": {
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "mcr.microsoft.com/azureiotedge-hub:1.2",
+              "createOptions": {
+                "HostConfig": {
+                  "PortBindings": {
+                    "5671/tcp": [
+                      {
+                        "HostPort": "5671"
+                      }
+                    ],
+                    "8883/tcp": [
+                      {
+                        "HostPort": "8883"
+                      }
+                    ],
+                    "443/tcp": [
+                      {
+                        "HostPort": "443"
+                      }
+                    ]
+                  }
+                },
+                "Binds": [
+                  "/etc/iotedge/edgehubstorage/:/etc/iotedge/edgehubstorage/"
+                ]
+              }
+            },
+            "env": {
+              "storageFolder": {
+                "value": "/etc/iotedge/edgehubstorage/"
+              }
+            }
+          }
+        },
+        "modules": {
+          "rr-applesprayer-gpio": {
+            "version": "${BUILD_BUILDNUMBER}",
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "${MODULEDIR<./Railwayrobotics.Applesprayer.Gpio>}",
+              "createOptions": {}
+            }
+          },
+          "rr-applesprayer-brain": {
+            "version": "${BUILD_BUILDNUMBER}",
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "${MODULEDIR<./Railwayrobotics.Applesprayer.Brain>}",
+              "createOptions": {
+                "HostConfig": {
+                  "Privileged": true,
+                  "Binds": [
+                    "/dev:/dev"
+                  ]
+                }
+              }
+            }
+          },
+          "NVIDIADeepStreamSDK": {
+            "version": "1.0",
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "marketplace.azurecr.io/nvidia/deepstream-iot2-l4t:latest",
+              "createOptions": {
+                "ExposedPorts": {
+                  "8554/tcp": {}
+                },
+                "HostConfig": {
+                  "LogConfig": {
+                    "Type": "json-file",
+                    "Config": {
+                      "max-size": "50m",
+                      "max-file": "3"
+                    }
+                  },
+                  "runtime": "nvidia",
+                  "PortBindings": {
+                    "8554/tcp": [
+                      {
+                        "HostPort": "8554"
+                      }
+                    ]
+                  },
+                  "Binds": [
+                    "/var/deepstream/custom_configs/:/root/deepstream_sdk_v4.0.2_jetson/sources/apps/sample_apps/deepstream-test5/custom_configs/",
+                    "/var/deepstream/custom_streams/:/root/deepstream_sdk_v4.0.2_jetson/sources/apps/sample_apps/deepstream-test5/custom_streams/",
+                    "/var/deepstream/custom_models/:/root/deepstream_sdk_v4.0.2_jetson/sources/apps/sample_apps/deepstream-test5/custom_models/"
+                  ]
+                },
+                "WorkingDir": "/root/deepstream_sdk_v4.0.2_jetson/sources/apps/sample_apps/deepstream-test5/custom_configs/",
+                "Entrypoint": [
+                  "/usr/bin/deepstream-test5-app",
+                  "-c",
+                  "test5_config_file_src_infer_azure_iotedge_edited.txt",
+                  "-p",
+                  "1",
+                  "-m",
+                  "1"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "$edgeHub": {
+      "properties.desired": {
+        "schemaVersion": "1.2",
+        "routes": {
+          "BrainToIoTHub": "FROM /messages/modules/rr-applesprayer-brain/outputs/* INTO $upstream",
+          "DeepstreamToIoTHub": "FROM /messages/modules/NVIDIADeepStreamSDK/outputs/* INTO $upstream"
+        },
+        "storeAndForwardConfiguration": {
+          "timeToLiveSecs": 432000
+        }
+      }
+    }
+  }
+}
