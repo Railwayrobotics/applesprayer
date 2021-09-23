@@ -53,7 +53,7 @@ stages:
 - stage: Edge
   displayName: Build target arm64v8 
   pool:
-    vmImage: 'ubuntu-latest'
+    vmImage: 'windows-latest'
   jobs:
   - job: tar
     displayName: Build docker tar arm64v8
