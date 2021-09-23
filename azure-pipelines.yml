@@ -60,16 +60,16 @@ stages:
     steps:
     - template: docker_save_tar.yml@iot
       parameters:
-        dockerFile: $(Build.SourcesDirectory)/Railwayrobotics.Applesprayer.Brain/Dockerfile.arm64v8
-        context: $(Build.SourcesDirectory)
-        tag: rr-applesprayer-brain:$(Build.BuildNumber)
-        outputFile: $(Build.ArtifactStagingDirectory)/rr-applesprayer-brain.tar
-    - template: docker_save_tar.yml@iot
-      parameters:
         dockerFile: $(Build.SourcesDirectory)/Railwayrobotics.Applesprayer.Gpio/Dockerfile.arm64v8
         context: $(Build.SourcesDirectory)
         tag: rr-applesprayer-gpio:$(Build.BuildNumber)
         outputFile: $(Build.ArtifactStagingDirectory)/rr-applesprayer-gpio.tar
+    - template: docker_save_tar.yml@iot
+      parameters:
+        dockerFile: $(Build.SourcesDirectory)/Railwayrobotics.Applesprayer.Brain/Dockerfile.arm64v8
+        context: $(Build.SourcesDirectory)
+        tag: rr-applesprayer-brain:$(Build.BuildNumber)
+        outputFile: $(Build.ArtifactStagingDirectory)/rr-applesprayer-brain.tar
     - task: Bash@3
       displayName: Install iotedgedev
       inputs:
