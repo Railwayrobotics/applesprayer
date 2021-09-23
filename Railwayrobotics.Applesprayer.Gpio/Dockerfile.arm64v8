@@ -1,12 +1,11 @@
 #!/bin/bash
+FROM arm64v8/python:3.7-slim-buster
 
-FROM arm64v8/python:3.7
+WORKDIR /app
 
-WORKDIR /src
+COPY Railwayrobotics.Applesprayer.Gpio/requirements.txt /app
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY Railwayrobotics.Applesprayer.Gpio/requirements.txt Railwayrobotics.Applesprayer.Gpio/
-RUN pip install --no-cache-dir -r Railwayrobotics.Applesprayer.Gpio/requirements.txt
-
-COPY Railwayrobotics.Applesprayer.Gpio/ .
+COPY Railwayrobotics.Applesprayer.Gpio app
 
 CMD [ "python3", "-u", "./main.py" ]
