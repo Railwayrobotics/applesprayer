@@ -58,7 +58,7 @@ stages:
   - job: tar
     displayName: Build docker tar arm64v8
     steps:
-    - template: Docker\docker_save_tar.yml@templates
+    - template: Docker\docker_save_tar.yml@iot
       parameters:
         dockerFile: $(Build.SourcesDirectory)/Railwayrobotics.Applesprayer.Brain/Dockerfile.arm64v8
         context: $(Build.SourcesDirectory)
