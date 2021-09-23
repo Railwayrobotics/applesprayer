@@ -1,6 +1,6 @@
 FROM arm64v8/python:3.7-slim-buster
 
-WORKDIR /app
+WORKDIR /src/Railwayrobotics.Applesprayer.Gpio/
 
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
