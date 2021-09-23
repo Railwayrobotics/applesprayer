@@ -61,7 +61,7 @@ stages:
     - template: docker_save_tar.yml@iot
       parameters:
         dockerFile: $(Build.SourcesDirectory)/Railwayrobotics.Applesprayer.Gpio/Dockerfile.arm64v8
-        context: $(Build.SourcesDirectory)
+        context: $(Build.SourcesDirectory)/Railwayrobotics.Applesprayer.Gpio
         tag: rr-applesprayer-gpio:$(Build.BuildNumber)
         outputFile: $(Build.ArtifactStagingDirectory)/rr-applesprayer-gpio.tar
     - template: docker_save_tar.yml@iot
