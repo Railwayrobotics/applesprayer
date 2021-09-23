@@ -1,9 +1,11 @@
-FROM arm64v8/python:3.7-slim-buster
+#!/bin/bash
+
+FROM arm64v8/python:3.7
 
 WORKDIR /src
 
 COPY Railwayrobotics.Applesprayer.Gpio/requirements.txt Railwayrobotics.Applesprayer.Gpio/
-RUN pip install -r Railwayrobotics.Applesprayer.Gpio/requirements.txt
+RUN pip install --no-cache-dir -r Railwayrobotics.Applesprayer.Gpio/requirements.txt
 
 COPY Railwayrobotics.Applesprayer.Gpio/ .
 
