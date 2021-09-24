@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Railwayrobotics.Applesprayer.Gpio", "Railwayrobotics.Applesprayer.Gpio", "{CC0DCEB2-4ABD-4B11-BE96-B02459F111E3}"
 	ProjectSection(SolutionItems) = preProject
 		Railwayrobotics.Applesprayer.Gpio\.gitignore = Railwayrobotics.Applesprayer.Gpio\.gitignore
+		Railwayrobotics.Applesprayer.Gpio\chmodQemu.sh = Railwayrobotics.Applesprayer.Gpio\chmodQemu.sh
 		Railwayrobotics.Applesprayer.Gpio\Dockerfile.arm64v8 = Railwayrobotics.Applesprayer.Gpio\Dockerfile.arm64v8
 		Railwayrobotics.Applesprayer.Gpio\main.py = Railwayrobotics.Applesprayer.Gpio\main.py
 		Railwayrobotics.Applesprayer.Gpio\module.json = Railwayrobotics.Applesprayer.Gpio\module.json
