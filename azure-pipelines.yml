@@ -50,7 +50,7 @@ stages:
         projects: '**/Railwayrobotics.Applesprayer.Brain.UnitTests.csproj'
         arguments: '--configuration $(buildConfiguration)'
 
-- stage: Edge
+- stage: Win-Edge
   displayName: Build target arm64v8 
   pool:
     vmImage: 'ubuntu-18.04'
@@ -64,6 +64,16 @@ stages:
         context: $(Build.SourcesDirectory)/Railwayrobotics.Applesprayer.Gpio
         tag: rr-applesprayer-gpio:$(Build.BuildNumber)
         outputFile: $(Build.ArtifactStagingDirectory)/rr-applesprayer-gpio.tar
+    - task: PublishBuildArtifacts@1
+
+- stage: Edge
+  displayName: Build target arm64v8 
+  pool:
+    vmImage: 'ubuntu-18.04'
+  jobs:
+  - job: tar
+    displayName: Build docker tar arm64v8
+    steps:
     - template: docker_save_tar.yml@iot
       parameters:
         dockerFile: $(Build.SourcesDirectory)/Railwayrobotics.Applesprayer.Brain/Dockerfile.arm64v8

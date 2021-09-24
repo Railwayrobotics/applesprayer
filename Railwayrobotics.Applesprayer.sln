@@ -13,7 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Railwayrobotics.Applespraye
 		Railwayrobotics.Applesprayer.Gpio\Dockerfile.arm64v8 = Railwayrobotics.Applesprayer.Gpio\Dockerfile.arm64v8
 		Railwayrobotics.Applesprayer.Gpio\main.py = Railwayrobotics.Applesprayer.Gpio\main.py
 		Railwayrobotics.Applesprayer.Gpio\module.json = Railwayrobotics.Applesprayer.Gpio\module.json
-		Railwayrobotics.Applesprayer.Gpio\prereqs.sh = Railwayrobotics.Applesprayer.Gpio\prereqs.sh
 		Railwayrobotics.Applesprayer.Gpio\requirements.txt = Railwayrobotics.Applesprayer.Gpio\requirements.txt
 	EndProjectSection
 EndProject
