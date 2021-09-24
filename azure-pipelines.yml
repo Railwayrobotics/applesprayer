@@ -53,11 +53,15 @@ stages:
 - stage: WinEdge
   displayName: Build target arm64v8 
   pool:
-    vmImage: 'ARM64'
+    vmImage: 'ubuntu-latest'
   jobs:
   - job: tar
     displayName: Build docker tar arm64v8
     steps:
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: 'run --rm --privileged multiarch/qemu-user-static:register --reset'
     - template: docker_save_tar.yml@iot
       parameters:
         dockerFile: $(Build.SourcesDirectory)/Railwayrobotics.Applesprayer.Gpio/Dockerfile.arm64v8
