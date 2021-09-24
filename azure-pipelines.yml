@@ -50,10 +50,10 @@ stages:
         projects: '**/Railwayrobotics.Applesprayer.Brain.UnitTests.csproj'
         arguments: '--configuration $(buildConfiguration)'
 
-- stage: Win-Edge
+- stage: WinEdge
   displayName: Build target arm64v8 
   pool:
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'ARM64'
   jobs:
   - job: tar
     displayName: Build docker tar arm64v8
