@@ -90,7 +90,7 @@ stages:
 - stage: Edge
   displayName: Build target arm64v8 
   pool:
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'ubuntu-latest'
   jobs:
   - job: tar
     displayName: Build docker tar arm64v8
