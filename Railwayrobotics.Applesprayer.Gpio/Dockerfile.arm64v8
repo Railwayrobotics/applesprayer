@@ -1,4 +1,4 @@
-FROM arm64v8/python:3.7.6-buster
+FROM arm64v8/python:3.7-slim-buster
 COPY qemu-aarch64-static /usr/bin
 
 WORKDIR /app
