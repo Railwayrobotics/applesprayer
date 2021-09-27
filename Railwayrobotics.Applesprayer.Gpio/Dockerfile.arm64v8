@@ -1,12 +1,12 @@
 FROM arm64v8/python:3.7.6-buster
+COPY qemu-aarch64-static /usr/bin
 
 WORKDIR /app
-COPY /usr/bin/qemu-arm-static /usr/bin/qemu-arm-static 
 
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
-RUN rm -f /usr/bin/qemu-arm-static 
+RUN rm -f /usr/bin/qemu-aarch64-static 
 
 COPY . .
 

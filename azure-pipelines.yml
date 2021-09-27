@@ -50,7 +50,7 @@ stages:
         projects: '**/Railwayrobotics.Applesprayer.Brain.UnitTests.csproj'
         arguments: '--configuration $(buildConfiguration)'
 
-- stage: WinEdge
+- stage: GpioEdge
   displayName: Build target arm64v8 
   pool:
     vmImage: 'ubuntu-latest'
@@ -58,13 +58,27 @@ stages:
   - job: tar
     displayName: Build docker tar arm64v8
     steps:
-    - task: Bash@3
+    - bash: |
+       sudo apt-get update
+       sudo apt-get install -y qemu qemu-user-static qemu-user binfmt-support   
+       cp /usr/bin/qemu-aarch64-static $sourcedir
+
+      displayName: 'Install QEMU'
+      env:
+        sourcedir: $(Build.SourcesDirectory)/Railwayrobotics.Applesprayer.Gpio
+    
+    - task: Docker@2
+      displayName: 'Run privileged container'
       inputs:
-        filePath: '$(Build.SourcesDirectory)/Railwayrobotics.Applesprayer.Gpio/chmodQemu.sh'
+        command: run
+        arguments: '--rm --privileged multiarch/qemu-user-static:register --reset'
+      enabled: true
+
     - task: Bash@3
       inputs:
         targetType: 'inline'
         script: 'docker run --rm --privileged multiarch/qemu-user-static:register --reset'
+    
     - template: docker_save_tar.yml@iot
       parameters:
         dockerFile: $(Build.SourcesDirectory)/Railwayrobotics.Applesprayer.Gpio/Dockerfile.arm64v8
