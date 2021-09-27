@@ -10,6 +10,4 @@ RUN rm -f /usr/bin/qemu-aarch64-static
 
 COPY . .
 
-RUN chmod +rwx main.py
-
 CMD [ "python3", "-u", "./main.py" ]
