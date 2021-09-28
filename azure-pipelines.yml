@@ -44,6 +44,7 @@ stages:
         projects: '**/*UnitTests.csproj'
 
     - task: DotNetCoreCLI@2
+      enabled: false
       displayName: 'UT: Railwayrobotics.Applesprayer.Brain.UnitTests'
       inputs:
         command: test
