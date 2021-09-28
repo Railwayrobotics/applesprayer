@@ -77,7 +77,14 @@
             "restartPolicy": "always",
             "settings": {
               "image": "${MODULEDIR<./Railwayrobotics.Applesprayer.Gpio>}",
-              "createOptions": {}
+              "createOptions": {
+                "HostConfig": {
+                  "Privileged": true,
+                  "Binds": [
+                    "/sys/class/gpio/export:/sys/class/gpio/export"
+                  ]
+                }
+              }
             }
           },
           "rr-applesprayer-brain": {
@@ -130,7 +137,8 @@
                     ]
                   },
                   "Binds": [
-                    "/opt/nvidia/deepstream/deepstream-4.0/:/opt/nvidia/deepstream/deepstream-4.0/"
+                    "/opt/nvidia/deepstream/deepstream-4.0/:/opt/nvidia/deepstream/deepstream-4.0/",
+                    "/root/deepstream_sdk_v4.0.2_jetson/sources/apps/sample_apps/deepstream-test5/custom_configs/\","
                   ]
                 },
                 "WorkingDir": "/opt/nvidia/deepstream/deepstream-4.0",
