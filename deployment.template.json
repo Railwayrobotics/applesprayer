@@ -137,18 +137,22 @@
                     ]
                   },
                   "Binds": [
-                    "/var/deepstream/yolo_config/:/root/deepstream_sdk_v4.0.2_jetson/sources/apps/yolo/"
+                    "/var/deepstream/yolo_config/:/root/deepstream_sdk_v4.0.2_jetson/sources/apps/yolo/",
+                    "/dev/video0:/dev/video0"
+                  ],
+                  "Devices": [
+                    {
+                      "PathOnHost": "/dev/video42",
+                      "PathInContainer": "/dev/video42",
+                      "CgroupPermissions": "mrw"
+                    }
                   ]
                 },
                 "WorkingDir": "/root/deepstream_sdk_v4.0.2_jetson/sources/apps/yolo/",
                 "Entrypoint": [
-                  "/usr/bin/deepstream-app",
+                  "/usr/bin/deepstream-test5-app",
                   "-c",
-                  "deepstream_config.txt",
-                  "-p",
-                  "1",
-                  "-m",
-                  "1"
+                  "deepstream_config.txt"
                 ]
               }
             }
