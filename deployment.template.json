@@ -142,7 +142,7 @@
                 },
                 "WorkingDir": "/root/deepstream_sdk_v4.0.2_jetson/sources/apps/yolo/",
                 "Entrypoint": [
-                  "/opt/nvidia/deepstream/deepstream-4.0.1/bin/deepstream-app",
+                  "/usr/bin/deepstream-app",
                   "-c",
                   "deepstream_config.txt",
                   "-p",
