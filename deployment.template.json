@@ -137,15 +137,14 @@
                     ]
                   },
                   "Binds": [
-                    "/opt/nvidia/deepstream/deepstream-4.0/:/opt/nvidia/deepstream/deepstream-4.0/",
-                    "/root/deepstream_sdk_v4.0.2_jetson/sources/apps/sample_apps/deepstream-test5/custom_configs/\","
+                    "/var/deepstream/yolo_config/:/root/deepstream_sdk_v4.0.2_jetson/sources/apps/yolo/"
                   ]
                 },
-                "WorkingDir": "/opt/nvidia/deepstream/deepstream-4.0",
+                "WorkingDir": "/root/deepstream_sdk_v4.0.2_jetson/sources/apps/yolo/",
                 "Entrypoint": [
-                  "usr/bin/deepstream-app",
+                  "/opt/nvidia/deepstream/deepstream-4.0.1/bin/deepstream-app",
                   "-c",
-                  "sources/objectDetector_Yolo/deepstream_config.txt",
+                  "deepstream_config.txt",
                   "-p",
                   "1",
                   "-m",
