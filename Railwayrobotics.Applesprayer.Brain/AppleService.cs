@@ -36,6 +36,31 @@ namespace BN.Edge.Robot.Device.Module.Anaylsis
             _logger.LogInformation(nameof(AppleService) + " loop stopped on cancellation");
         }
 
+        public override async Task StartAsync(CancellationToken cancellationToken)
+        {
+            _logger.LogInformation("Creating and opening client");
+
+            await Exec(_moduleClient.CreateClient(), nameof(_moduleClient.CreateClient));
+            await Exec(_moduleClient.OpenAsync(cancellationToken), nameof(_moduleClient.OpenAsync));
+            
+            _logger.LogInformation("Client initialized");
+
+            await base.StartAsync(cancellationToken);
+        }
+
+        public override async Task StopAsync(CancellationToken cancellationToken)
+        {
+            await _moduleClient?.CloseAsync(cancellationToken);
+            await base.StopAsync(cancellationToken);
+        }
+
+        private async Task Exec(Task setup, string serviceName)
+        {
+            await setup;
+            _logger.LogInformation(serviceName + " successfully setup");
+        }
+
+
         private Task<MessageResponse> QueueMessageHandler(Message message, object userContext)
         {
             var rawMessage = TryGetRawContent(message);
