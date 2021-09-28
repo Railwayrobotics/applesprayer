@@ -9,7 +9,6 @@ COPY . ./
 WORKDIR /src/Railwayrobotics.Applesprayer.Brain
 RUN dotnet publish -r linux-arm -c Release -o /app/out 
 
-3.1.10-buster-slim-arm64v8
 FROM mcr.microsoft.com/dotnet/core/runtime:3.1.18-buster-slim-arm64v8
 WORKDIR /app
 COPY --from=build-env /app/out ./
