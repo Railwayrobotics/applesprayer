@@ -11,10 +11,20 @@
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
+	<PackageReference Include="FakeItEasy" Version="6.2.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Railwayrobotics.Applesprayer.Brain\Railwayrobotics.Applesprayer.Brain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="person_detected_1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="apple_detected_1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

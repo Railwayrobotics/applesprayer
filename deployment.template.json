@@ -165,8 +165,8 @@
         "schemaVersion": "1.2",
         "routes": {
           "BrainToIoTHub": "FROM /messages/modules/rr-applesprayer-brain/outputs/* INTO $upstream",
-          "DeepstreamToBrain": "FROM /messages/modules/NVIDIADeepStreamSDK/outputs/* INTO BrokeredEndpoint(\"/modules/rr-applesprayer-brain/inputs/imageDetected\")",
-          "DeepstreamToIoTHub": "FROM /messages/modules/NVIDIADeepStreamSDK/outputs/* INTO $upstream"
+          "BrainToGpio": "FROM /messages/modules/rr-applesprayer-brain/outputs/gpio INTO BrokeredEndpoint(\"/modules/rr-applesprayer-gpio/inputs/imageDetected\")",
+          "DeepstreamToBrain": "FROM /messages/modules/NVIDIADeepStreamSDK/outputs/* INTO BrokeredEndpoint(\"/modules/rr-applesprayer-brain/inputs/imageDetected\")"
         },
         "storeAndForwardConfiguration": {
           "timeToLiveSecs": 432000

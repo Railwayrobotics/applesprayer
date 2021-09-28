@@ -25,11 +25,12 @@ async def main():
         # connect the client.
         await module_client.connect()
 
+        GPIO.setmode(GPIO.BCM)
+
         # interface the gpio
         async def write_to_gpio(data):
-            pythonObj = json.loads(data)
-            GPIO.setmode(GPIO.BCM)
-            GPIO.output(data.output_pin, GPIO.LOW)
+            #pythonObj = json.loads(data)
+            GPIO.output(data.output_pin, data.value)
 
         # define behavior for receiving an input message on input1
         async def input1_listener(module_client):

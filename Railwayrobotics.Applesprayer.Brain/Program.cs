@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Railwayrobotics.Applesprayer.Brain.Plumbing;
 using Railwayrobotics.Applesprayer.Brain.Plumbing.Client;
+using Railwayrobotics.Applesprayer.Brain.Services;
 using System.Threading.Tasks;
 
 namespace Railwayrobotics.Applesprayer.Brain
@@ -18,6 +19,8 @@ namespace Railwayrobotics.Applesprayer.Brain
 
         private static void ConfigureSpecificServices(IServiceCollection services)
         {
+            services.AddSingleton<IGpioService, GpioService>();
+            services.AddSingleton<AppleActorService>();
             services.AddHostedService<AppleService>();
         }
     }
