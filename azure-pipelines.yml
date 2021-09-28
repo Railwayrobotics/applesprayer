@@ -115,8 +115,8 @@ stages:
         deploymentManifestOutputPath: '$(Build.ArtifactStagingDirectory)/config/dev/deployment.json'
         validateGeneratedDeploymentManifest: 'true'
       env:
-        CONTAINER_REGISTRY_SERVER: rrpliotcontainerdev.azurecr.io
-        ACR_ID: rrpliotcontainerdev
+        CONTAINER_REGISTRY_SERVER: railwayroboticsdev.azurecr.io
+        ACR_ID: railwayroboticsdev
 
  #   - task: AzureIoTEdge@2
  #     displayName: Generate deployment manifest

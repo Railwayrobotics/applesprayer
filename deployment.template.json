@@ -135,7 +135,7 @@
                 },
                 "WorkingDir": "/opt/nvidia/deepstream/deepstream-4.0",
                 "Entrypoint": [
-                  "/bin/deepstream-app",
+                  "usr/bin/deepstream-app",
                   "-c",
                   "sources/objectDetector_Yolo/deepstream_config.txt",
                   "-p",
