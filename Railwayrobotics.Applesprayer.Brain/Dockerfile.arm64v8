@@ -13,4 +13,4 @@ FROM mcr.microsoft.com/dotnet/core/runtime-deps:3.1.14-buster-slim-arm64v8
 WORKDIR /app
 COPY --from=build-env /app/out ./
 
-ENTRYPOINT ["dotnet", "Railwayrobotics.Applesprayer.Brain.dll"]
+ENTRYPOINT [ "./Railwayrobotics.Applesprayer.Brain" ]
