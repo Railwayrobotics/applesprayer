@@ -102,18 +102,31 @@ stages:
         context: $(Build.SourcesDirectory)
         tag: rr-applesprayer-brain:$(Build.BuildNumber)
         outputFile: $(Build.ArtifactStagingDirectory)/rr-applesprayer-brain.tar
+
     - task: Bash@3
       displayName: Install iotedgedev
       inputs:
         targetType: 'inline'
         script: 'pip install -U iotedgedev'
     - task: AzureIoTEdge@2
-      displayName: Generate deployment manifest
+      displayName: Generate deployment manifest: dev
       inputs:
         action: 'Generate deployment manifest'
-        templateFilePath: 'deployment.template.json'
+        templateFilePath: 'deployment.template.dev.json'
         defaultPlatform: 'arm64v8'
-        deploymentManifestOutputPath: '$(Build.ArtifactStagingDirectory)/config/dev/deployment.json'
+        deploymentManifestOutputPath: '$(Build.ArtifactStagingDirectory)/config/dev/deployment.dev.json'
+        validateGeneratedDeploymentManifest: 'true'
+      env:
+        CONTAINER_REGISTRY_SERVER: railwayroboticsdev.azurecr.io
+        ACR_ID: railwayroboticsdev
+
+    - task: AzureIoTEdge@2
+      displayName: Generate deployment manifest: prototype
+      inputs:
+        action: 'Generate deployment manifest'
+        templateFilePath: 'deployment.template.prototype.json'
+        defaultPlatform: 'arm64v8'
+        deploymentManifestOutputPath: '$(Build.ArtifactStagingDirectory)/config/dev/deployment.prototype.json'
         validateGeneratedDeploymentManifest: 'true'
       env:
         CONTAINER_REGISTRY_SERVER: railwayroboticsdev.azurecr.io
