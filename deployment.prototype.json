@@ -3,7 +3,7 @@
   "modulesContent": {
     "$edgeAgent": {
       "properties.desired": {
-        "schemaVersion": "1.1",
+        "schemaVersion": "1.0",
         "runtime": {
           "type": "docker",
           "settings": {
@@ -77,7 +77,14 @@
             "restartPolicy": "always",
             "settings": {
               "image": "${MODULEDIR<./Railwayrobotics.Applesprayer.Gpio>}",
-              "createOptions": {}
+              "createOptions": {
+                "HostConfig": {
+                  "Privileged": true,
+                  "Binds": [
+                    "/sys/class/gpio/export:/sys/class/gpio/export"
+                  ]
+                }
+              }
             }
           },
           "rr-applesprayer-brain": {
@@ -118,27 +125,34 @@
                   },
                   "runtime": "nvidia",
                   "PortBindings": {
-                    "8554/tcp": [
+                    "8555/tcp": [
                       {
-                        "HostPort": "8554"
+                        "HostPort": "8555"
+                      }
+                    ],
+                    "5401/udp": [
+                      {
+                        "HostPort": "5401"
                       }
                     ]
                   },
                   "Binds": [
-                    "/var/deepstream/custom_configs/:/root/deepstream_sdk_v4.0.2_jetson/sources/apps/sample_apps/deepstream-test5/custom_configs/",
-                    "/var/deepstream/custom_streams/:/root/deepstream_sdk_v4.0.2_jetson/sources/apps/sample_apps/deepstream-test5/custom_streams/",
-                    "/var/deepstream/custom_models/:/root/deepstream_sdk_v4.0.2_jetson/sources/apps/sample_apps/deepstream-test5/custom_models/"
+                    "/var/deepstream/yolo_config/:/root/deepstream_sdk_v4.0.2_jetson/sources/apps/yolo/",
+                    "/dev/video2:/dev/video2"
+                  ],
+                  "Devices": [
+                    {
+                      "PathOnHost": "/dev/video2",
+                      "PathInContainer": "/dev/video2",
+                      "CgroupPermissions": "mrw"
+                    }
                   ]
                 },
-                "WorkingDir": "/root/deepstream_sdk_v4.0.2_jetson/sources/apps/sample_apps/deepstream-test5/custom_configs/",
+                "WorkingDir": "/root/deepstream_sdk_v4.0.2_jetson/sources/apps/yolo/",
                 "Entrypoint": [
                   "/usr/bin/deepstream-test5-app",
                   "-c",
-                  "test5_config_file_src_infer_azure_iotedge_edited.txt",
-                  "-p",
-                  "1",
-                  "-m",
-                  "1"
+                  "deepstream_config.txt"
                 ]
               }
             }
@@ -148,10 +162,11 @@
     },
     "$edgeHub": {
       "properties.desired": {
-        "schemaVersion": "1.2",
+        "schemaVersion": "1.0",
         "routes": {
           "BrainToIoTHub": "FROM /messages/modules/rr-applesprayer-brain/outputs/* INTO $upstream",
-          "DeepstreamToIoTHub": "FROM /messages/modules/NVIDIADeepStreamSDK/outputs/* INTO $upstream"
+          "BrainToGpio": "FROM /messages/modules/rr-applesprayer-brain/outputs/gpio INTO BrokeredEndpoint(\"/modules/rr-applesprayer-gpio/inputs/imageDetected\")",
+          "DeepstreamToBrain": "FROM /messages/modules/NVIDIADeepStreamSDK/outputs/* INTO BrokeredEndpoint(\"/modules/rr-applesprayer-brain/inputs/imageDetected\")"
         },
         "storeAndForwardConfiguration": {
           "timeToLiveSecs": 432000

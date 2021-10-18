@@ -1,0 +1,16 @@
+{
+    "$schema-version": "0.0.1",
+    "description": "",
+    "image": {
+        "repository": "${CONTAINER_REGISTRY_SERVER}/rr-applesprayer-brain",
+        "tag": {
+            "version": "${BUILD_BUILDNUMBER}",
+            "platforms": {
+                "arm64v8": "./Dockerfile.arm64v8"
+            }
+        },
+        "buildOptions": [],
+        "contextPath": "../"
+    },
+    "language": "csharp"
+}
