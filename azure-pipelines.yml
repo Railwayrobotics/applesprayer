@@ -109,7 +109,7 @@ stages:
         targetType: 'inline'
         script: 'pip install -U iotedgedev'
     - task: AzureIoTEdge@2
-      displayName: Generate deployment manifest: dev
+      displayName: Generate deployment manifest dev
       inputs:
         action: 'Generate deployment manifest'
         templateFilePath: 'deployment.template.dev.json'
@@ -121,7 +121,7 @@ stages:
         ACR_ID: railwayroboticsdev
 
     - task: AzureIoTEdge@2
-      displayName: Generate deployment manifest: prototype
+      displayName: Generate deployment manifest prototype
       inputs:
         action: 'Generate deployment manifest'
         templateFilePath: 'deployment.template.prototype.json'
