@@ -110,7 +110,7 @@
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "marketplace.azurecr.io/nvidia/deepstream-iot2-l4t:latest",
+              "image": "marketplace.azurecr.io/nvidia/deepstream51-l4t:latest",
               "createOptions": {
                 "ExposedPorts": {
                   "8554/tcp": {}
@@ -137,7 +137,7 @@
                     ]
                   },
                   "Binds": [
-                    "/var/deepstream/yolo_config/:/root/deepstream_sdk_v4.0.2_jetson/sources/apps/yolo/",
+                    "/var/deepstream/yolo_config/:/opt/nvidia/deepstream/deepstream-5.1/sources/apps/yolo/",
                     "/dev/video2:/dev/video2"
                   ],
                   "Devices": [
@@ -148,7 +148,7 @@
                     }
                   ]
                 },
-                "WorkingDir": "/root/deepstream_sdk_v4.0.2_jetson/sources/apps/yolo/",
+                "WorkingDir": "/opt/nvidia/deepstream/deepstream-5.1/sources/apps/yolo/",
                 "Entrypoint": [
                   "/usr/bin/deepstream-test5-app",
                   "-c",
