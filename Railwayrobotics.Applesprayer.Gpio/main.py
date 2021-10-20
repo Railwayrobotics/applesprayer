@@ -40,9 +40,8 @@ async def main():
                 print(input_message.data)
                 print("custom properties are")
                 print(input_message.custom_properties)
-                write_to_gpio(input_message.data)
-                 # print("forwarding mesage to output1")
-                # await module_client.send_message_to_output(input_message, "output1")
+
+                await write_to_gpio(input_message.data)
 
         # define behavior for halting the application
         def stdin_listener():
