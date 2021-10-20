@@ -30,10 +30,10 @@ async def main():
         # interface the gpio
         async def write_to_gpio(data):
             #pythonObj = json.loads(data)
-            print(data.output_pin)
-            print(data.value)
+            print(data["output_pin"])
+            print(data["value"])
 
-            GPIO.output(data.output_pin, data.value)
+            GPIO.output(data["output_pin"], data["value"])
 
         # define behavior for receiving an input message on input1
         async def input1_listener(module_client):
@@ -49,11 +49,16 @@ async def main():
                     print(input_message.custom_properties)
 
                     if not input_message is None and not input_message.data is None:
+                       print("data is accepted")
                        message_string = input_message.data.decode('utf-8')
+                       print(message_string)
+
                        data = json.loads(message_string)
 
+                       print("data is")
+                       print(data)
+
                        print("Writing to gpio")
-                    
                        await write_to_gpio(data)
 
                     else:
