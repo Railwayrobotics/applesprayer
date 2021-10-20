@@ -30,18 +30,38 @@ async def main():
         # interface the gpio
         async def write_to_gpio(data):
             #pythonObj = json.loads(data)
+            print(data.output_pin)
+            print(data.value)
+
             GPIO.output(data.output_pin, data.value)
 
         # define behavior for receiving an input message on input1
         async def input1_listener(module_client):
             while True:
-                input_message = await module_client.receive_message_on_input("imageDetected")  # blocking call
-                print("the data in the message received on imageDetected was ")
-                print(input_message.data)
-                print("custom properties are")
-                print(input_message.custom_properties)
+                try: 
+                    print("Listening..")
 
-                await write_to_gpio(input_message.data)
+                    input_message = await module_client.receive_message_on_input("imageDetected")  # blocking call
+
+                    print("the data in the message received on imageDetected was ")
+                    print(input_message.data)
+                    print("custom properties are")
+                    print(input_message.custom_properties)
+
+                    if not input_message is None and not input_message.data is None:
+                       message_string = input_message.data.decode('utf-8')
+                       data = json.loads(message_string)
+
+                       print("Writing to gpio")
+                    
+                       await write_to_gpio(data)
+
+                    else:
+                        print("Unrecognized message")
+
+                except Exception as e:
+                    print("******************* Exception")
+                    print(e)
 
         # define behavior for halting the application
         def stdin_listener():
