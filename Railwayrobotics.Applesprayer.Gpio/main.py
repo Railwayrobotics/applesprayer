@@ -30,7 +30,7 @@ async def main():
 
         # interface the gpio
         async def write_to_gpio(data):
-            print("writing value " + data["value"] + " to pin " + data["output_pin"])
+            #print("writing value " + data["value"] + " to pin " + data["output_pin"])
 
             GPIO.output(data["output_pin"], data["value"])
 
