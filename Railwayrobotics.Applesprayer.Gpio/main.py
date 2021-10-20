@@ -26,12 +26,11 @@ async def main():
         await module_client.connect()
 
         GPIO.setmode(GPIO.BCM)
+        GPIO.setup(18, GPIO.OUT)
 
         # interface the gpio
         async def write_to_gpio(data):
-            #pythonObj = json.loads(data)
-            print(data["output_pin"])
-            print(data["value"])
+            print("writing value " + data["value"] + " to pin " + data["output_pin"])
 
             GPIO.output(data["output_pin"], data["value"])
 
@@ -54,9 +53,6 @@ async def main():
                        print(message_string)
 
                        data = json.loads(message_string)
-
-                       print("data is")
-                       print(data)
 
                        print("Writing to gpio")
                        await write_to_gpio(data)
@@ -96,6 +92,7 @@ async def main():
 
         # Finally, disconnect
         await module_client.disconnect()
+        GPIO.cleanup()
 
     except Exception as e:
         print ( "Unexpected error %s " % e )
